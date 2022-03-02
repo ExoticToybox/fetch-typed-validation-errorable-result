@@ -4,8 +4,10 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'plugin:react/recommended',
     'airbnb',
+    'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:import/recommended',
     'plugin:import/typescript',
   ],
@@ -16,6 +18,8 @@ module.exports = {
     },
     ecmaVersion: 'latest',
     sourceType: 'module',
+    tsconfigRootDir: __dirname, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+    project: ['./tsconfig.json'],
   },
   plugins: [
     'react',
