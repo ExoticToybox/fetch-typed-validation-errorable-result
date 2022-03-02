@@ -9,7 +9,8 @@
     "format": "yarn prettier --write './**/*.{js,jsx,ts,tsx,json}'",
     "format:fix": "yarn format && yarn lint:fix",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^17.0.2",
@@ -37,6 +38,12 @@
   "volta": {
     "node": "16.14.0",
     "yarn": "1.22.17"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "license": "MIT"
 }
