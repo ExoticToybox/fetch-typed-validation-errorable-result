@@ -1,0 +1,7 @@
+.history
+package.json
+yarn.lock
+
+# Ignore artifacts:
+build
+coverage
