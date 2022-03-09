@@ -1,4 +1,46 @@
-#!/bin/sh
+#!/usr/bin/env bash
 . "$(dirname "$0")/_/husky.sh"
+set -e
+ROOT_DIR=$(realpath "$(dirname "$0")"/..)
+# テスト対象の拡張子
+TESTABLE_EXTENTIONS=("ts" "tsx")
+# テスト対象の拡張子を正規表現に修正
+TESTABLE_EXTENTIONS_REGEX="\.($(
+  IFS="|"
+  echo "${TESTABLE_EXTENTIONS[*]}"
+))"
+# テスト対象外の拡張子
+UNTESTABLE_EXTENTIONS=("d.ts" "untestable.ts" "untestable.tsx")
+# テスト対象外の拡張子を正規表現に修正
+UNTESTABLE_EXTENTIONS_REGEX="\.($(
+  IFS="|"
+  echo "${UNTESTABLE_EXTENTIONS[*]}"
+))"
 
+EXIT_CODE=0
+for FILE_PATH in $(git diff --name-only --cached); do
+  if [[ ${FILE_PATH} =~ ^.*${TESTABLE_EXTENTIONS_REGEX}$ ]] \
+      && [[ ! ${FILE_PATH} =~ ^.*${UNTESTABLE_EXTENTIONS_REGEX}$ ]] \
+      && [[ ! ${FILE_PATH} =~ ^.*\.test${TESTABLE_EXTENTIONS_REGEX}$ ]]; then
+    DELETED=0
+    git diff --cached --quiet --diff-filter=d -- "${FILE_PATH}" || DELETED=$?
+    TEST_FILE_PATH=$(echo "${FILE_PATH}" | sed -r "s/^(.*)\/(.*)${TESTABLE_EXTENTIONS_REGEX}$/\1\/__tests__\/\2.test.\3/")
+    if [[ ${DELETED} -eq 0 ]]; then
+      if [[ -e "${ROOT_DIR}/${TEST_FILE_PATH}" ]]; then
+        echo "Reamaining test file found: ${TEST_FILE_PATH}"
+        echo "Deleted source file path:   ${FILE_PATH}"
+        EXIT_CODE=1
+      fi
+    else
+      if [[ ! -e "${ROOT_DIR}/${TEST_FILE_PATH}" ]]; then
+        echo "No test file found of:   ${FILE_PATH}"
+        # echo "Expected test file path: ${TEST_FILE_PATH}"
+        # EXIT_CODE=1
+      fi
+    fi
+  fi
+done
+if [[ ${EXIT_CODE} -ne 0 ]]; then
+  exit "${EXIT_CODE}"
+fi
 yarn lint-staged

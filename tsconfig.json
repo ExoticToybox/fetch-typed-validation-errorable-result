@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es5",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": false,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,6 +20,7 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", ".eslintrc.js", "vite.config.ts", "jest.config.js"],
+  "include": ["src", ".eslintrc.js", "vite.config.ts", "jest.config.js"]
+  ,
   "references": [{ "path": "./tsconfig.node.json" }]
 }
