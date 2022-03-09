@@ -49,6 +49,9 @@ module.exports = {
         'newlines-between': 'always',
         pathGroupsExcludedImportTypes: ['builtin'],
         alphabetize: { order: 'asc', caseInsensitive: true },
+        pathGroups: [
+          { pattern: '@/**', group: 'internal', position: 'before' },
+        ],
       },
     ],
     'react/jsx-filename-extension': [
@@ -68,4 +71,9 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
 };
