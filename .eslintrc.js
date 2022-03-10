@@ -35,6 +35,18 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'vite.config.ts',
+          'src/setup-tests/**/*.ts',
+          '**/*.test.ts',
+          '**/*.test.tsx',
+        ],
+        peerDependencies: false,
+      },
+    ],
     'import/order': [
       'error',
       {
@@ -65,14 +77,6 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'react/react-in-jsx-scope': 'off',
   },
-  overrides: [
-    {
-      files: ['vite.config.ts'],
-      rules: {
-        'import/no-extraneous-dependencies': 'off',
-      },
-    },
-  ],
   settings: {
     'import/resolver': {
       typescript: {},
