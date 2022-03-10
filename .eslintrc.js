@@ -23,8 +23,9 @@ module.exports = {
     tsconfigRootDir: __dirname, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
     project: ['./tsconfig.json'],
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'import-access'],
   rules: {
+    'import-access/jsdoc': ['error'],
     'import/extensions': [
       'error',
       {
