@@ -14,6 +14,7 @@ export default defineConfig({
     },
   },
   test: {
+    environment: 'happy-dom',
     setupFiles: [
       './src/setup-tests/enable-fetch.untestable.ts',
       './src/setup-tests/enable-msw.untestable.ts',
