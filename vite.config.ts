@@ -14,6 +14,9 @@ export default defineConfig({
     },
   },
   test: {
-    setupFiles: ['./src/setup-tests/enable-fetch.untestable.ts'],
+    setupFiles: [
+      './src/setup-tests/enable-fetch.untestable.ts',
+      './src/setup-tests/enable-msw.untestable.ts',
+    ],
   },
 });
