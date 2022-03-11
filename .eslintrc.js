@@ -40,9 +40,8 @@ module.exports = {
       {
         devDependencies: [
           'vite.config.ts',
-          'src/setup-tests/**/*.ts',
-          '**/*.test.ts',
-          '**/*.test.tsx',
+          'src/setup-tests/**/*.{ts,tsx}',
+          '**/*.test.{ts,tsx}',
         ],
         peerDependencies: false,
       },
